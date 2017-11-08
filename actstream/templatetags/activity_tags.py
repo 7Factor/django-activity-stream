@@ -159,6 +159,12 @@ def follow_all_url(parser, token):
         return DisplayActivityFollowUrl(bits[1], actor_only=False)
 
 
+def activity(obj):
+    """
+    Returns a QuerySet of all ``Action``s for a the object.
+    """
+    return Action.objects.for_object(obj)
+
 def actor_url(parser, token):
     """
     Renders the URL for a particular actor instance
@@ -200,6 +206,7 @@ def activity_stream(context, stream_type, *args, **kwargs):
 
 
 register.filter(activity_stream)
+register.filter(activity)
 register.filter(is_following)
 register.tag(display_action)
 register.tag(follow_url)
